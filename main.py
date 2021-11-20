@@ -29,8 +29,12 @@ while game_is_on:
         for state in data['state']:
             if state not in correct_answers:
                 missed_answers.append(state)
-        print(missed_answers)
 
+        with open('missed_answers.csv', mode='w') as file:
+            writer = csv.writer(file)
+            writer.writerow(missed_answers)
+        print(missed_answers)
+        break
 
     for state in data['state']:
         score = len(correct_answers)
@@ -50,5 +54,4 @@ while game_is_on:
             state_name.write(arg='You Guessed All States', move=False, align='center', font=('Arial', 50, 'normal'))
             state_name.goto(0, 0)
             game_is_on = False
-
-turtle.mainloop()
+    turtle.mainloop()
