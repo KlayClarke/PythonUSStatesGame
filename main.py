@@ -22,7 +22,7 @@ game_is_on = True
 while game_is_on:
 
     answer_state = screen.textinput(title=f'{len(correct_answers)}/50 correct',
-                                    prompt='What\'s another state\'s name?').title()
+                                    prompt='What\'s another state\'s name?').title().strip()
 
     for state in data['state']:
         score = len(correct_answers)
