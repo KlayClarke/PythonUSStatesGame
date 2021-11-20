@@ -19,9 +19,7 @@ correct_answers = []
 missed_answers = []
 score = 0
 
-game_is_on = True
-
-while game_is_on:
+while score < 50:
 
     answer_state = screen.textinput(title=f'{len(correct_answers)}/50 correct',
                                     prompt='What\'s another state\'s name?').title().strip()
@@ -32,8 +30,6 @@ while game_is_on:
         with open('missed_answers.csv', mode='w') as file:
             writer = csv.writer(file)
             writer.writerows(missed_answers)
-        print(missed_answers)
-        break
     else:
         for state in data['state']:
             score = len(correct_answers)
@@ -48,10 +44,9 @@ while game_is_on:
                     state_coordinates = (state_x_coordinate, state_y_coordinate)
                     state_name.goto(state_coordinates)
                     state_name.write(arg=state, move=False, align='center', font=('Arial', 8, 'normal'))
-            elif score == 50:
-                screen.clear()
-                state_name.write(arg='You Guessed All States', move=False, align='center', font=('Arial', 50, 'normal'))
-                state_name.goto(0, 0)
-                game_is_on = False
 
-    turtle.mainloop()
+screen.clear()
+state_name.write(arg='You Guessed All States', move=False, align='center', font=('Arial', 50, 'normal'))
+state_name.goto(0, 0)
+
+turtle.mainloop()
