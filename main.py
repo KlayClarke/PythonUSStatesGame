@@ -20,7 +20,6 @@ missed_answers = []
 score = 0
 
 while score < 50:
-
     answer_state = screen.textinput(title=f'{len(correct_answers)}/50 correct',
                                     prompt='What\'s another state\'s name?').title().strip()
     if answer_state == 'Exit':
@@ -46,7 +45,7 @@ while score < 50:
                     state_name.write(arg=state, move=False, align='center', font=('Arial', 8, 'normal'))
 
 screen.clear()
-state_name.write(arg='You Guessed All States', move=False, align='center', font=('Arial', 50, 'normal'))
 state_name.goto(0, 0)
+state_name.write(arg='You Guessed All States', move=False, align='center', font=('Arial', 50, 'normal'))
 
 turtle.mainloop()
