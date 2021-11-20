@@ -16,19 +16,23 @@ state_name.hideturtle()
 data = pandas.read_csv('50_states.csv')
 
 correct_answers = []
-missed_answers = []
+
 score = 0
 
-while score < 50:
+user_exit = False
+
+while user_exit is False and score < 50:
     answer_state = screen.textinput(title=f'{len(correct_answers)}/50 correct',
                                     prompt='What\'s another state\'s name?').title().strip()
     if answer_state == 'Exit':
+        missed_answers = []
+        user_exit = True
         for state in data['state']:
             if state not in correct_answers:
-                missed_answers.append([state])
-        with open('missed_answers.csv', mode='w') as file:
-            writer = csv.writer(file)
-            writer.writerows(missed_answers)
+                missed_answers.append(state)
+        missing_states_data = pandas.DataFrame(missed_answers)
+        missing_states_data.to_csv('missed_answers.csv')
+
     else:
         for state in data['state']:
             score = len(correct_answers)
@@ -46,6 +50,7 @@ while score < 50:
 
 screen.clear()
 state_name.goto(0, 0)
-state_name.write(arg='You Guessed All States', move=False, align='center', font=('Arial', 50, 'normal'))
+state_name.write(arg=f'You Guessed {len(correct_answers)} States Correctly', move=False, align='center',
+                 font=('Arial', 50, 'normal'))
 
 turtle.mainloop()
