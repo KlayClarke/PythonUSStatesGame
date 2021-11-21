@@ -1,4 +1,3 @@
-import csv
 import turtle
 import pandas
 
@@ -14,7 +13,7 @@ state_name.penup()
 state_name.hideturtle()
 
 data = pandas.read_csv('50_states.csv')
-
+all_states = data.state.to_list()
 correct_answers = []
 
 score = 0
@@ -25,13 +24,10 @@ while user_exit is False and score < 50:
     answer_state = screen.textinput(title=f'{len(correct_answers)}/50 correct',
                                     prompt='What\'s another state\'s name?').title().strip()
     if answer_state == 'Exit':
-        missed_answers = []
-        user_exit = True
-        for state in data['state']:
-            if state not in correct_answers:
-                missed_answers.append(state)
+        missed_answers = [state for state in all_states if state not in correct_answers]
         missing_states_data = pandas.DataFrame(missed_answers)
         missing_states_data.to_csv('missed_answers.csv')
+        user_exit = True
 
     else:
         for state in data['state']:
@@ -51,6 +47,6 @@ while user_exit is False and score < 50:
 screen.clear()
 state_name.goto(0, 0)
 state_name.write(arg=f'You Guessed {len(correct_answers)} States Correctly', move=False, align='center',
-                 font=('Arial', 50, 'normal'))
+                 font=('Arial', 30, 'normal'))
 
 turtle.mainloop()
